@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import SearchBar from './components/SearchBar';
 
 function App() {
+  const [data, setData] = useState({});
+
+  const updateData = (searchParams) => {
+    setData(searchParams);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SearchBar callback={updateData}/>
+      <p>Name: {"name" in data ? data["name"] : "No Data to display"}</p>
+      <p>Max Price: {"price" in data ? data["price"] : "No Data to display"}</p>
+      <p>Type: {"type" in data ? data["type"] : "No Data to display"}</p>
+      <p>Brand: {"brand" in data ? data["brand"] : "No Data to display"}</p>
     </div>
   );
 }
