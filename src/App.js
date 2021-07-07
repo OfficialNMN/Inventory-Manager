@@ -1,20 +1,37 @@
-import { useState } from 'react';
 import './App.css';
-import SearchBar from './components/SearchBar';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import {Todos} from './components/Todos';
 
-function App() {
-  const [data, setData] = useState({});
+function App(){
 
-  const updateData = (searchParams) => {
-    setData(searchParams);
-  };
+  const onDelete = (todo) => {
+    console.log("I am on delete")
+  }
+
+  let todos=[
+    {
+    sno:1,
+    title: "Take Sam for a Walk",
+    desc: "Kardiyo yaad se!"
+  },
+  {
+    sno:2,
+    title: "Have breakfast",
+    desc: "Marzi h khana h to kha!"
+  },
+  {
+    sno:3,
+    title: "Grind DsAlgo",
+    desc: "Job leni h to karna padega!"
+  },
+  ]
+
   return (
     <div className="App">
-      <SearchBar callback={updateData}/>
-      <p>Name: {"name" in data ? data["name"] : "No Data to display"}</p>
-      <p>Max Price: {"price" in data ? data["price"] : "No Data to display"}</p>
-      <p>Type: {"type" in data ? data["type"] : "No Data to display"}</p>
-      <p>Brand: {"brand" in data ? data["brand"] : "No Data to display"}</p>
+      <Header title='What To Do'/>
+      <Todos todos={todos} onDelete={onDelete}/>
+      <Footer/>
     </div>
   );
 }
