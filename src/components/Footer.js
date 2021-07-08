@@ -1,10 +1,17 @@
 import React from 'react'
 
-export default function Footer() {
+export default function Footer(props) {
+    let footerStyle={
+        position:'absolute',
+        top:"100vh",
+        width:"100%"
+    }
     return (
-        <div>
-            <p align='left'>Footer goes here</p>
-        </div>
+        <footer className='bg-dark text-light py-3' style={footerStyle}>
+            <p className='text-center'>
+            Copyright &copy; WhatToDo
+            </p>
+        </footer>
     )
 }
 
