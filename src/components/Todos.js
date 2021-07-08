@@ -8,8 +8,12 @@ export const Todos = (props) => {
             {/* to display all TodoItem components*/}
             {props.todos.length===0 ? "All clear Well Done!":
             props.todos.map((todo)=>{
-                return <TodoItem todo={todo} key={todo.sno} onDelete={props.onDelete}/>
-            })}
+                return (
+                <>
+                <TodoItem todo={todo} key={todo.sno} onDelete={props.onDelete}/>
+                <hr/>
+                </>
+            )})}
         </div>
     )
 }

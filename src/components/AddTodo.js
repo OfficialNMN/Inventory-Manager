@@ -1,20 +1,30 @@
-import React from "react";
+import React, {useState} from 'react'
 
-export const AddTodo = () => {
-  return (
-    <div className='container my-3' >
-      <h3>Add a ToDo</h3>
-      <form align='left'>
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input type="text" class="form-control" id="text" aria-describedby="emailHelp" placeholder="Enter Title"  />
+export const AddTodo = (props) => {
+    const [title, settitle] = useState("")
+    const [desc, setdesc] = useState("")
+
+    const submit = (e)=>{
+        e.preventDefault();
+        if(!title || !desc){
+            alert("Title or Description can't be empty")
+        }
+        props.addTodo(title,desc);
+    }
+    return (
+        <div className='container my-3' align='left' >
+        <h3>Add a ToDo</h3>
+        <form align='left' onSubmit={submit}>
+            <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input type="text" className="form-control" id="text" value={title} onChange={(e)=>{settitle(e.target.value)}} aria-describedby="emailHelp" placeholder="Enter Title"  />
+            </div>
+            <div className="form-group">
+            <label htmlFor="desc">Description</label>
+            <input type="desc" className="form-control" id="desc" value={desc} onChange={(e)=>{setdesc(e.target.value)}} placeholder="Description" />
+            </div>
+            <button type="submit" className="btn btn-success btn-sm">Add ToDo</button>
+        </form>
         </div>
-        <div class="form-group">
-          <label for="desc">Description</label>
-          <input type="desc" class="form-control" id="desc" placeholder="Description" />
-        </div>
-        <button type="submit" class="btn btn-success btn-sm"> Add ToDo</button>
-      </form>
-    </div>
   );
 };

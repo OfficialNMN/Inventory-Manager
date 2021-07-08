@@ -8,13 +8,31 @@ import { AddTodo } from './components/AddTodo';
 function App(){
 
   const onDelete = (todo) => {
-    console.log("I am on delete")
-    settodos(todos.filter((e)=>{
+    setTodos(todos.filter((e)=>{
       return e!==todo;
     }))
+    console.log("I am on delete",todo)
   }
 
-const [todos, settodos] = useState([
+  const addTodo=(title,desc)=>{
+    let sno;
+    if (todos.length==0){
+      sno=1;
+    }
+    else{
+      sno = todos[todos.length-1].sno+1
+    }
+    
+    const mytodo={
+      sno: sno,
+      title: title,
+      desc: desc,
+    }
+    console.log(mytodo)
+    setTodos([...todos, mytodo]);
+  }
+
+const [todos, setTodos] = useState([
     {
     sno:1,
     title: "Take Sam for a Walk",
@@ -35,7 +53,8 @@ const [todos, settodos] = useState([
   return (
     <div className="App">
       <Header title='WhatToDo'/>
-      <AddTodo/>
+      <AddTodo addTodo={addTodo}/>
+      <hr/>
       <Todos todos={todos} onDelete={onDelete}/>
       <Footer/>
     </div>
