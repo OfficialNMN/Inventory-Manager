@@ -1,9 +1,15 @@
 import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import {About} from './components/About';
 import {Todos} from './components/Todos';
 import React, {useState, useEffect} from 'react'
 import { AddTodo } from './components/AddTodo';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 function App(){
   let initTodo;
@@ -24,7 +30,7 @@ function App(){
 
   const addTodo=(title,desc)=>{
     let sno;
-    if (todos.length==0){
+    if (todos.length===0){
       sno=1;
     }
     else{
@@ -48,11 +54,24 @@ useEffect(() => {
 
   return (
     <div className="App">
-      <Header title='WhatToDo'/>
-      <AddTodo addTodo={addTodo}/>
-      <hr/>
-      <Todos todos={todos} onDelete={onDelete}/>
-      <Footer/>
+      <Router>
+        <Header title='WhatToDo'/>
+        <Switch>
+          <Route exact path="/" render={()=>{
+            return(
+              <div>
+                <AddTodo addTodo={addTodo}/>
+                <hr/>
+                <Todos todos={todos} onDelete={onDelete}/>
+              </div>)
+            }}>
+          </Route>
+          <Route exact path="/about">
+            <About />
+          </Route>
+        </Switch>
+        <Footer/>
+      </Router>
     </div>
   );
 }
