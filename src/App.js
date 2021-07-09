@@ -2,16 +2,24 @@ import './App.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import {Todos} from './components/Todos';
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { AddTodo } from './components/AddTodo';
 
 function App(){
+  let initTodo;
+  if (localStorage.getItem("todos")===null){
+    initTodo=[];
+  }
+  else{
+    initTodo=JSON.parse(localStorage.getItem("todos"));
+  }
 
   const onDelete = (todo) => {
     setTodos(todos.filter((e)=>{
       return e!==todo;
     }))
     console.log("I am on delete",todo)
+    localStorage.setItem("todos",JSON.stringify(todos))
   }
 
   const addTodo=(title,desc)=>{
@@ -32,23 +40,11 @@ function App(){
     setTodos([...todos, mytodo]);
   }
 
-const [todos, setTodos] = useState([
-    {
-    sno:1,
-    title: "Take Sam for a Walk",
-    desc: "Kardiyo yaad se!"
-  },
-  {
-    sno:2,
-    title: "Have breakfast",
-    desc: "Marzi h khana h to kha!"
-  },
-  {
-    sno:3,
-    title: "Grind DsAlgo",
-    desc: "Job leni h to karna padega!"
-  }
-  ])
+const [todos, setTodos] = useState(initTodo)
+
+useEffect(() => {
+      localStorage.setItem("todos",JSON.stringify(todos))
+}, [todos])
 
   return (
     <div className="App">
